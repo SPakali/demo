@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus EduOS — Next-Gen Intelligent Education Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0E1A;--bg2:#0F1525;--bg3:#151C30;--bg4:#1A2238;
+  --card:#141929;--card2:#1E2740;
+  --blue:#4F8EF7;--blue2:#3A7DE8;--purple:#8B5CF6;--teal:#10D9A8;--amber:#F59E0B;--coral:#F26B4E;--green:#22C55E;
+  --text:#F0F4FF;--text2:#9BA8C0;--text3:#6B7A99;
+  --border:rgba(255,255,255,0.07);--border2:rgba(79,142,247,0.25);
+  --grad1:linear-gradient(135deg,#4F8EF7,#8B5CF6);
+  --grad2:linear-gradient(135deg,#10D9A8,#4F8EF7);
+  --grad3:linear-gradient(135deg,#F59E0B,#F26B4E);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,26,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 5%}
+.nav-inner{max-width:1200px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:36px;height:36px;background:var(--grad1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.logo-text span{background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--grad1);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5% 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.18}
+.orb1{width:600px;height:600px;background:#4F8EF7;top:-150px;left:-100px}
+.orb2{width:500px;height:500px;background:#8B5CF6;bottom:-100px;right:-80px}
+.orb3{width:300px;height:300px;background:#10D9A8;top:40%;left:50%;transform:translate(-50%,-50%)}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.3);border-radius:999px;padding:6px 16px;font-size:12px;color:var(--blue);margin-bottom:28px;font-weight:500}
+.hero-badge .dot{width:6px;height:6px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+h1{font-size:clamp(36px,5vw,68px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:24px}
+h1 .grad{background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h1 .grad2{background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:var(--text2);max-width:680px;margin:0 auto 40px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--grad1);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(79,142,247,.35)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2);padding:14px 32px;border-radius:10px;font-size:15px;font-weight:500;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{background:rgba(79,142,247,.08);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:64px;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-num{font-size:36px;font-weight:800;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hstat-lbl{font-size:13px;color:var(--text3);margin-top:4px}
+
+/* SECTIONS */
+section{padding:80px 5%}
+.container{max-width:1200px;margin:0 auto}
+.sec-badge{display:inline-block;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.25);border-radius:999px;padding:5px 14px;font-size:12px;color:var(--blue);font-weight:500;margin-bottom:16px}
+.sec-title{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-.8px;margin-bottom:14px}
+.sec-sub{font-size:16px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:48px}
+.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}
+
+/* MODULES GRID */
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.mod-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:.25s;cursor:pointer;position:relative;overflow:hidden}
+.mod-card::before{content:'';position:absolute;inset:0;background:var(--grad1);opacity:0;transition:.25s}
+.mod-card:hover{border-color:rgba(79,142,247,.4);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.mod-card:hover::before{opacity:.04}
+.mod-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.ic-blue{background:rgba(79,142,247,.15);color:var(--blue)}
+.ic-purple{background:rgba(139,92,246,.15);color:var(--purple)}
+.ic-teal{background:rgba(16,217,168,.15);color:var(--teal)}
+.ic-amber{background:rgba(245,158,11,.15);color:var(--amber)}
+.ic-coral{background:rgba(242,107,78,.15);color:var(--coral)}
+.ic-green{background:rgba(34,197,94,.15);color:var(--green)}
+.mod-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.mod-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.mod-tag{display:inline-block;font-size:10px;padding:3px 8px;border-radius:999px;margin-top:12px;font-weight:600}
+.tag-ai{background:rgba(139,92,246,.2);color:#A78BFA}
+.tag-iot{background:rgba(16,217,168,.15);color:var(--teal)}
+.tag-new{background:rgba(245,158,11,.15);color:var(--amber)}
+.tag-core{background:rgba(79,142,247,.15);color:var(--blue)}
+.tag-china{background:rgba(239,68,68,.15);color:#F87171}
+.tag-japan{background:rgba(255,255,255,.1);color:#E2E8F0}
+
+/* ADVANCED STRIP */
+.adv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.adv-card{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:28px;transition:.2s}
+.adv-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.adv-flag{display:flex;gap:8px;margin-bottom:16px;align-items:center}
+.flag{font-size:20px}
+.adv-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.05em;text-transform:uppercase}
+.adv-title{font-size:17px;font-weight:700;margin-bottom:10px}
+.adv-desc{font-size:13px;color:var(--text2);line-height:1.7}
+.adv-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.pill{font-size:10px;padding:3px 9px;border-radius:999px;border:1px solid var(--border);color:var(--text3)}
+
+/* GPS VISUAL SECTION */
+.gps-section{background:var(--bg2);border-radius:32px;padding:60px 5%;margin:0 auto;max-width:1200px}
+.gps-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.gps-visual{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:24px;position:relative;overflow:hidden;height:360px}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(79,142,247,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(79,142,247,.05) 1px,transparent 1px);background-size:40px 40px}
+.campus-boundary{position:absolute;top:40px;left:40px;right:40px;bottom:40px;border:2px dashed rgba(79,142,247,.4);border-radius:16px}
+.zone-label{position:absolute;top:50px;left:50px;font-size:11px;color:rgba(79,142,247,.7);font-weight:600}
+.student-dot{position:absolute;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg3)}
+.dot-safe{background:var(--teal)}
+.dot-alert{background:var(--coral);animation:blink .8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.dot-pulse{position:absolute;width:24px;height:24px;border-radius:50%;border:1px solid var(--coral);animation:ripple 1.5s infinite;top:-6px;left:-6px}
+@keyframes ripple{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.5);opacity:0}}
+.alert-banner{position:absolute;bottom:16px;left:16px;right:16px;background:rgba(242,107,78,.15);border:1px solid rgba(242,107,78,.4);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.alert-icon{font-size:18px}
+.alert-text{font-size:12px;font-weight:600;color:var(--coral)}
+.alert-sub{font-size:11px;color:var(--text2)}
+.gps-features{display:flex;flex-direction:column;gap:16px}
+.gps-feat{display:flex;gap:14px;align-items:flex-start}
+.gps-feat-icon{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.gps-feat-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.gps-feat-desc{font-size:13px;color:var(--text2);line-height:1.5}
+
+/* WORKFLOW */
+.workflow{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0;position:relative}
+.wf-step{background:var(--card);border:1px solid var(--border);padding:24px;text-align:center;position:relative;transition:.2s}
+.wf-step:first-child{border-radius:16px 0 0 16px}
+.wf-step:last-child{border-radius:0 16px 16px 0}
+.wf-step:not(:last-child)::after{content:'→';position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--blue);font-size:20px;z-index:1;font-weight:700}
+.wf-num{width:36px;height:36px;border-radius:50%;background:var(--grad1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin:0 auto 12px}
+.wf-title{font-size:13px;font-weight:600;margin-bottom:6px}
+.wf-desc{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* TECH STACK */
+.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.stack-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:.2s}
+.stack-item:hover{border-color:var(--border2)}
+.stack-icon{font-size:28px;margin-bottom:8px}
+.stack-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.stack-role{font-size:11px;color:var(--text3)}
+
+/* SECURITY */
+.security-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.sec-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;gap:14px;align-items:flex-start}
+.sec-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.sec-title{font-size:14px;font-weight:600;margin-bottom:5px}
+.sec-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* TESTIMONIALS / INSTITUTIONS */
+.inst-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.inst-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px}
+.inst-logo{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+.inst-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.inst-loc{font-size:12px;color:var(--text3);margin-bottom:16px}
+.inst-quote{font-size:14px;color:var(--text2);line-height:1.7;font-style:italic}
+.inst-author{font-size:13px;font-weight:600;color:var(--text);margin-top:14px}
+.inst-role{font-size:12px;color:var(--text3)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;transition:.2s}
+.price-card.featured{border-color:rgba(79,142,247,.5);background:linear-gradient(180deg,rgba(79,142,247,.08) 0%,var(--card) 100%)}
+.price-card:hover{transform:translateY(-4px)}
+.price-tier{font-size:13px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.price-val{font-size:40px;font-weight:800;margin-bottom:4px}
+.price-val span{font-size:16px;color:var(--text2);font-weight:400}
+.price-desc{font-size:13px;color:var(--text2);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.price-feat{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pf-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
+.pf-check{color:var(--teal);font-size:15px}
+.price-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.pb-ghost{background:transparent;border:1px solid var(--border2);color:var(--text)}
+.pb-ghost:hover{background:rgba(79,142,247,.08)}
+.pb-primary{background:var(--grad1);color:#fff}
+.pb-primary:hover{opacity:.9}
+.popular-badge{display:inline-block;background:var(--grad1);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px}
+
+/* CTA SECTION */
+.cta-section{background:linear-gradient(135deg,rgba(79,142,247,.12),rgba(139,92,246,.12));border:1px solid rgba(79,142,247,.2);border-radius:32px;padding:72px 40px;text-align:center;max-width:1200px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 5% 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 40px}
+.footer-brand p{font-size:14px;color:var(--text3);margin-top:12px;line-height:1.7;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.footer-col a{display:block;font-size:13px;color:var(--text3);text-decoration:none;margin-bottom:10px;transition:.15s}
+.footer-col a:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:13px;color:var(--text3)}
+
+/* SCROLL ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .gps-inner{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .wf-step:not(:last-child)::after{display:none}
+  .wf-step:first-child,.wf-step:last-child{border-radius:0}
+  .workflow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🎓</div>
+      <span class="logo-text">Nexus <span>EduOS</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#advanced">Advanced AI</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <button class="nav-cta">Book a Demo</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Now live at 120+ institutions across Asia
+    </div>
+    <h1>The <span class="grad">Intelligent</span> Operating<br>System for <span class="grad2">Elite Education</span></h1>
+    <p class="hero-sub">One unified platform for student safety, academic excellence, parent engagement, and institutional operations — powered by AI, IoT, and real-time intelligence inspired by China & Japan's next-gen EdTech.</p>
+    <div class="hero-btns">
+      <a href="#modules" class="btn-primary">Explore Platform</a>
+      <a href="#advanced" class="btn-ghost">See AI Modules →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">50K+</div><div class="hstat-lbl">Students managed</div></div>
+      <div class="hstat"><div class="hstat-num">13</div><div class="hstat-lbl">Core modules</div></div>
+      <div class="hstat"><div class="hstat-num">99.9%</div><div class="hstat-lbl">Uptime SLA</div></div>
+      <div class="hstat"><div class="hstat-num">6ms</div><div class="hstat-lbl">GPS alert latency</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="container">
+    <div class="text-center fade-up">
+      <span class="sec-badge">Platform Modules</span>
+      <h2 class="sec-title">Everything an elite institution needs</h2>
+      <p class="sec-sub mx-auto">13 deeply integrated modules covering every dimension of institutional life — from GPS student tracking to blockchain-verified credentials.</p>
+    </div>
+    <div class="modules-grid fade-up">
+      <div class="mod-card">
+        <div class="mod-icon ic-blue">📊</div>
+        <div class="mod-title">Super Admin Dashboard</div>
+        <div class="mod-desc">Global institution overview with live GPS alerts, device monitoring, suspicious login detection, and incident management.</div>
+        <span class="mod-tag tag-core">Core</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-teal">🎓</div>
+        <div class="mod-title">Student Management</div>
+        <div class="mod-desc">Complete lifecycle with QR digital profiles, RFID/GPS wristband mapping, medical alerts, allergy tracking, and behavior records.</div>
+        <span class="mod-tag tag-iot">IoT</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-purple">💻</div>
+        <div class="mod-title">Digital Classroom</div>
+        <div class="mod-desc">Live classes, recorded lectures, AI lesson planner, smart timetable, quiz engine, doubt resolution, and engagement analytics.</div>
+        <span class="mod-tag tag-ai">AI-Powered</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-blue">👥</div>
+        <div class="mod-title">Staff Management</div>
+        <div class="mod-desc">Teaching & non-teaching HR, payroll, timetabling, performance scoring, student feedback, and security staff GPS dashboard.</div>
+        <span class="mod-tag tag-core">Core</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-green">👨‍👩‍👧</div>
+        <div class="mod-title">Parent Engagement Portal</div>
+        <div class="mod-desc">Live GPS tracking, automated result delivery via WhatsApp & SMS, fee alerts, homework tracker, and teacher meeting bookings.</div>
+        <span class="mod-tag tag-core">Core</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-amber">🚌</div>
+        <div class="mod-title">Transport Management</div>
+        <div class="mod-desc">GPS vehicle monitoring, route optimization, boarding confirmations, delay alerts, driver profiles, and live parent bus tracking.</div>
+        <span class="mod-tag tag-iot">IoT</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-coral">💰</div>
+        <div class="mod-title">Fees & Finance</div>
+        <div class="mod-desc">Payment gateway integration, installment plans, scholarship tracking, overdue reminders, receipt generation, and revenue analytics.</div>
+        <span class="mod-tag tag-core">Core</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-purple">📝</div>
+        <div class="mod-title">Examination & Academics</div>
+        <div class="mod-desc">Exam planning, hall ticket generation, marks entry, result approval workflow, AI weak-subject detection, and improvement recommendations.</div>
+        <span class="mod-tag tag-ai">AI-Powered</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-blue">🏠</div>
+        <div class="mod-title">Hostel Management</div>
+        <div class="mod-desc">Room allocation, curfew GPS monitoring, warden dashboard, visitor management, occupancy tracking, and incident reporting.</div>
+        <span class="mod-tag tag-iot">IoT</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-teal">🪪</div>
+        <div class="mod-title">Visitor Management</div>
+        <div class="mod-desc">Digital visitor registration, ID capture, QR visitor passes, security validation, approval workflow, and entry/exit audit logs.</div>
+        <span class="mod-tag tag-core">Core</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-green">💬</div>
+        <div class="mod-title">Communication Center</div>
+        <div class="mod-desc">Unified WhatsApp, SMS, email, and push notification engine with emergency broadcast, approval workflows, and campaign management.</div>
+        <span class="mod-tag tag-core">Core</span>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon ic-amber">📈</div>
+        <div class="mod-title">Analytics & Reporting</div>
+        <div class="mod-desc">Predictive AI dashboards for dropout risk, attendance anomaly detection, performance forecasting, and parent engagement scoring.</div>
+        <span class="mod-tag tag-ai">AI-Powered</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GPS SAFETY SECTION -->
+<section id="safety" style="background:var(--bg2)">
+  <div class="container">
+    <div class="gps-section" style="background:transparent;padding:0;max-width:100%">
+      <div class="gps-inner">
+        <div>
+          <span class="sec-badge">GPS + IoT Safety</span>
+          <h2 class="sec-title">Every student, every moment, accounted for</h2>
+          <p style="font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:32px">Smart GPS wristbands on every student create a real-time safety layer. The moment a student crosses a geofence, a 5-level escalation fires instantly — from security staff to parents.</p>
+          <div class="gps-features">
+            <div class="gps-feat">
+              <div class="gps-feat-icon ic-teal">📍</div>
+              <div><div class="gps-feat-title">Real-time geofencing</div><div class="gps-feat-desc">Campus, hostel, and restricted zones monitored 24/7 with sub-10 meter accuracy.</div></div>
+            </div>
+            <div class="gps-feat">
+              <div class="gps-feat-icon ic-coral">🚨</div>
+              <div><div class="gps-feat-title">Instant multi-channel alerts</div><div class="gps-feat-desc">Simultaneous SMS, WhatsApp, push, and security dashboard alerts within 6ms of breach.</div></div>
+            </div>
+            <div class="gps-feat">
+              <div class="gps-feat-icon ic-purple">🏥</div>
+              <div><div class="gps-feat-title">Biometric wellbeing</div><div class="gps-feat-desc">Wristband HRV monitoring detects stress and burnout patterns, feeding the Mental Health AI engine.</div></div>
+            </div>
+            <div class="gps-feat">
+              <div class="gps-feat-icon ic-amber">🚌</div>
+              <div><div class="gps-feat-title">Bus boarding validation</div><div class="gps-feat-desc">RFID auto-confirms boarding and drop-off; parents get a notification at every checkpoint.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="gps-visual">
+          <div class="map-grid"></div>
+          <div class="campus-boundary"></div>
+          <div class="zone-label">Campus boundary</div>
+          <!-- Students -->
+          <div class="student-dot dot-safe" style="top:120px;left:180px" title="Student safe"></div>
+          <div class="student-dot dot-safe" style="top:200px;left:260px"></div>
+          <div class="student-dot dot-safe" style="top:160px;left:310px"></div>
+          <div class="student-dot dot-safe" style="top:240px;left:180px"></div>
+          <div class="student-dot dot-safe" style="top:280px;left:300px"></div>
+          <div style="position:absolute;top:68px;right:68px">
+            <div class="student-dot dot-alert" style="position:static"></div>
+            <div class="dot-pulse"></div>
+          </div>
+          <div class="alert-banner">
+            <div class="alert-icon">⚠️</div>
+            <div>
+              <div class="alert-text">Student ID #4821 — Campus exit detected</div>
+              <div class="alert-sub">Gate 3 · 2 mins ago · Security + Parents notified · Tracking active</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANCED AI / CHINA-JAPAN INSPIRED -->
+<section id="advanced">
+  <div class="container">
+    <div class="text-center fade-up">
+      <span class="sec-badge">🇨🇳 China · 🇯🇵 Japan Inspired</span>
+      <h2 class="sec-title">Advanced modules from the<br>world's EdTech leaders</h2>
+      <p class="sec-sub mx-auto">6 next-generation capabilities built on breakthroughs from China's Squirrel AI, Yuanfudao, and Japan's Society 5.0 smart campus initiatives.</p>
+    </div>
+    <div class="adv-grid fade-up">
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇨🇳</span><span class="adv-label">China-inspired · Squirrel AI model</span></div>
+        <div class="adv-title">Adaptive Learning Engine</div>
+        <div class="adv-desc">Real-time mastery mapping adjusts lesson difficulty, pacing, and content for every student individually. The system builds a dynamic knowledge graph — if a student struggles with quadratic equations, it traces back to the root gap and reteaches it before moving forward.</div>
+        <div class="adv-pills"><span class="pill">Knowledge graph</span><span class="pill">Mastery mapping</span><span class="pill">Auto-pacing</span><span class="pill">Personalized paths</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇨🇳</span><span class="adv-label">China-inspired · Classroom AI</span></div>
+        <div class="adv-title">Emotion & Engagement AI</div>
+        <div class="adv-desc">Privacy-controlled classroom cameras detect confusion, fatigue, and disengagement in real time via facial expression and posture analysis. Teachers receive a live attention heatmap — so they know exactly which students to engage before a lesson is lost.</div>
+        <div class="adv-pills"><span class="pill">Opt-in only</span><span class="pill">GDPR compliant</span><span class="pill">Attention heatmap</span><span class="pill">Fatigue alerts</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇯🇵</span><span class="adv-label">Japan-inspired · Society 5.0</span></div>
+        <div class="adv-title">Digital Twin Campus</div>
+        <div class="adv-desc">A live 3D model of the institution overlays real-time GPS student positions, room occupancy, energy consumption, and maintenance tickets. In emergencies, the command-center mode activates — every staff member sees a live operational picture instantly.</div>
+        <div class="adv-pills"><span class="pill">3D live model</span><span class="pill">IoT overlay</span><span class="pill">Emergency mode</span><span class="pill">Energy analytics</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇯🇵</span><span class="adv-label">Japan-inspired · MEXT Digital Badge</span></div>
+        <div class="adv-title">Micro-credential & Skill Passport</div>
+        <div class="adv-desc">Students accumulate verified micro-credentials across academics, extracurriculars, and competitions. A portable digital skill passport — shareable with universities and employers — grows with the student from enrollment to graduation and beyond.</div>
+        <div class="adv-pills"><span class="pill">Portable passport</span><span class="pill">University-ready</span><span class="pill">Verified badges</span><span class="pill">Alumni network</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇨🇳</span><span class="adv-label">China-inspired · Blockchain diploma</span></div>
+        <div class="adv-title">Blockchain Credentials</div>
+        <div class="adv-desc">Immutable on-chain academic transcripts, certificates, and attendance records. Any university, employer, or authority worldwide can verify a credential in seconds without contacting the institution. Eliminates fraud permanently.</div>
+        <div class="adv-pills"><span class="pill">Tamper-proof</span><span class="pill">Instant verify</span><span class="pill">Global standard</span><span class="pill">Zero fraud</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇯🇵</span><span class="adv-label">Japan-inspired · Wellbeing focus</span></div>
+        <div class="adv-title">Mental Health & Wellbeing AI</div>
+        <div class="adv-desc">Integrates wristband HRV biometrics with periodic sentiment surveys to build a longitudinal wellbeing score per student. Early burnout and anxiety signals trigger counselor escalation workflows — weeks before a crisis becomes visible.</div>
+        <div class="adv-pills"><span class="pill">HRV integration</span><span class="pill">Burnout detection</span><span class="pill">Counselor alerts</span><span class="pill">Longitudinal score</span></div>
+      </div>
+    </div>
+
+    <!-- Also add: Robotics, Multilingual AI, Smart Campus IoT -->
+    <div style="margin-top:20px" class="adv-grid fade-up">
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇯🇵</span><span class="adv-label">Japan-inspired · Monodzukuri culture</span></div>
+        <div class="adv-title">Robotics & STEM Lab Integration</div>
+        <div class="adv-desc">Digital twin of physical lab equipment. Remote monitoring of 3D printers, robot kits, and sensors. Assignment submissions linked to hardware sessions with automated validation of lab outcomes.</div>
+        <div class="adv-pills"><span class="pill">Lab digital twin</span><span class="pill">Remote monitoring</span><span class="pill">Hardware submissions</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇨🇳</span><span class="adv-label">Both · LLM-powered</span></div>
+        <div class="adv-title">Multilingual AI Tutor</div>
+        <div class="adv-desc">LLM-powered tutor supporting 20+ languages. Answers doubts, explains concepts, grades open-ended essays with rubric alignment. Available 24/7 to every student — with full audit logs for teachers.</div>
+        <div class="adv-pills"><span class="pill">20+ languages</span><span class="pill">Essay grading</span><span class="pill">24/7 availability</span><span class="pill">Rubric-aligned</span></div>
+      </div>
+      <div class="adv-card">
+        <div class="adv-flag"><span class="flag">🇯🇵</span><span class="adv-label">Japan-inspired · BEMS standard</span></div>
+        <div class="adv-title">Smart Campus IoT & Energy</div>
+        <div class="adv-desc">Occupancy-based HVAC and smart lighting control, energy consumption dashboards, predictive maintenance for lab equipment, and carbon reporting aligned with national sustainability mandates.</div>
+        <div class="adv-pills"><span class="pill">HVAC automation</span><span class="pill">Predictive maintenance</span><span class="pill">Carbon reporting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section style="background:var(--bg2)">
+  <div class="container">
+    <div class="text-center fade-up" style="margin-bottom:40px">
+      <span class="sec-badge">Automated Workflow</span>
+      <h2 class="sec-title">Result day. Zero manual work.</h2>
+      <p class="sec-sub mx-auto">From exam completion to parent notification — every step is automated, logged, and audited.</p>
+    </div>
+    <div class="workflow fade-up">
+      <div class="wf-step">
+        <div class="wf-num">1</div>
+        <div class="wf-title">Marks entry</div>
+        <div class="wf-desc">Teachers submit marks via secure portal with dual-entry validation</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">2</div>
+        <div class="wf-title">Admin review</div>
+        <div class="wf-desc">Principal reviews analytics, flags anomalies, approves results</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">3</div>
+        <div class="wf-title">PDF generated</div>
+        <div class="wf-desc">Branded report cards auto-generated per student with AI remarks</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">4</div>
+        <div class="wf-title">Multi-channel push</div>
+        <div class="wf-desc">WhatsApp, SMS, email, and app notification sent simultaneously</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">5</div>
+        <div class="wf-title">AI recommendations</div>
+        <div class="wf-desc">Personalized improvement plans delivered to student & parent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+  <div class="container">
+    <div class="text-center fade-up">
+      <span class="sec-badge">Enterprise Security</span>
+      <h2 class="sec-title">Bank-grade security for<br>sensitive student data</h2>
+      <p class="sec-sub mx-auto">Built to meet MLPS 2.0, ISMAP, ISO 27001, and PDPA compliance standards from day one.</p>
+    </div>
+    <div class="security-grid fade-up">
+      <div class="sec-card"><div class="sec-icon">🔐</div><div><div class="sec-title">MFA & Zero Trust</div><div class="sec-desc">Multi-factor auth on all roles. Every request verified regardless of network origin.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">🌐</div><div><div class="sec-title">IP Whitelisting</div><div class="sec-desc">Admin console accessible only from pre-approved IP ranges. Block everything else by default.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">🔒</div><div><div class="sec-title">Encryption everywhere</div><div class="sec-desc">AES-256 at rest, TLS 1.3 in transit. Database fields tokenized. Keys rotated automatically.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">📋</div><div><div class="sec-title">Immutable audit logs</div><div class="sec-desc">Every admin action, login, and data access is logged to tamper-proof append-only storage.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">🛡️</div><div><div class="sec-title">Role-based access</div><div class="sec-desc">Granular permissions per module, per campus, per role. No horizontal privilege escalation possible.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">🔬</div><div><div class="sec-title">Threat detection AI</div><div class="sec-desc">Behavioral anomaly detection flags unusual login times, bulk exports, and session hijack patterns.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">🏢</div><div><div class="sec-title">On-prem deployment</div><div class="sec-desc">Air-gapped, private cloud, or hybrid. Data never leaves your jurisdiction. Full sovereignty.</div></div></div>
+      <div class="sec-card"><div class="sec-icon">⚛️</div><div><div class="sec-title">Quantum-ready roadmap</div><div class="sec-desc">Post-quantum cryptography migration path built into the architecture. Future-proof key exchange.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section style="background:var(--bg2)">
+  <div class="container">
+    <div class="text-center fade-up" style="margin-bottom:40px">
+      <span class="sec-badge">Technology Stack</span>
+      <h2 class="sec-title">Production-grade from day one</h2>
+    </div>
+    <div class="stack-grid fade-up">
+      <div class="stack-item"><div class="stack-icon">⚛️</div><div class="stack-name">React / Next.js</div><div class="stack-role">Frontend</div></div>
+      <div class="stack-item"><div class="stack-icon">🟢</div><div class="stack-name">Node / NestJS</div><div class="stack-role">Backend API</div></div>
+      <div class="stack-item"><div class="stack-icon">🐘</div><div class="stack-name">PostgreSQL</div><div class="stack-role">Primary DB</div></div>
+      <div class="stack-item"><div class="stack-icon">⚡</div><div class="stack-name">Redis</div><div class="stack-role">Cache / Realtime</div></div>
+      <div class="stack-item"><div class="stack-icon">🔌</div><div class="stack-name">WebSockets</div><div class="stack-role">Live GPS / alerts</div></div>
+      <div class="stack-item"><div class="stack-icon">🐳</div><div class="stack-name">Docker / K8s</div><div class="stack-role">Deployment</div></div>
+      <div class="stack-item"><div class="stack-icon">☁️</div><div class="stack-name">AWS / Azure</div><div class="stack-role">Cloud infra</div></div>
+      <div class="stack-item"><div class="stack-icon">💬</div><div class="stack-name">WhatsApp API</div><div class="stack-role">Parent comms</div></div>
+      <div class="stack-item"><div class="stack-icon">📡</div><div class="stack-name">RFID / GPS API</div><div class="stack-role">IoT wearables</div></div>
+      <div class="stack-item"><div class="stack-icon">🧠</div><div class="stack-name">AI/ML Engine</div><div class="stack-role">Predictions</div></div>
+      <div class="stack-item"><div class="stack-icon">⛓️</div><div class="stack-name">Blockchain</div><div class="stack-role">Credentials</div></div>
+      <div class="stack-item"><div class="stack-icon">📱</div><div class="stack-name">PWA / Mobile</div><div class="stack-role">Parent app</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONS -->
+<section>
+  <div class="container">
+    <div class="text-center fade-up">
+      <span class="sec-badge">Trusted by Institutions</span>
+      <h2 class="sec-title">What leaders say</h2>
+      <p class="sec-sub mx-auto">Used by forward-thinking institutions across India, Japan, and Southeast Asia.</p>
+    </div>
+    <div class="inst-grid fade-up">
+      <div class="inst-card">
+        <div class="inst-logo ic-blue" style="font-size:24px;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center">🏛️</div>
+        <div class="inst-name">Delhi International Academy</div>
+        <div class="inst-loc">New Delhi, India · 4,200 students</div>
+        <div class="inst-quote">"The GPS wristband system gave our parents genuine peace of mind for the first time. We had zero unauthorized exits in the first term after deployment."</div>
+        <div class="inst-author">Dr. Priya Nair</div>
+        <div class="inst-role">Principal & CEO</div>
+      </div>
+      <div class="inst-card">
+        <div class="inst-logo ic-teal" style="font-size:24px;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center">🎌</div>
+        <div class="inst-name">Sakura Global School</div>
+        <div class="inst-loc">Osaka, Japan · 2,800 students</div>
+        <div class="inst-quote">"The digital twin campus and BEMS energy integration aligned perfectly with our Society 5.0 commitments. Our carbon footprint dropped 31% in year one."</div>
+        <div class="inst-author">Kenji Watanabe</div>
+        <div class="inst-role">Director of Digital Operations</div>
+      </div>
+      <div class="inst-card">
+        <div class="inst-logo ic-purple" style="font-size:24px;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center">🏆</div>
+        <div class="inst-name">Excellence Academy Group</div>
+        <div class="inst-loc">Bengaluru, India · 11,000 students across 4 campuses</div>
+        <div class="inst-quote">"Managing four campuses from one super admin dashboard transformed our operations. The blockchain credential system eliminated transcript fraud entirely."</div>
+        <div class="inst-author">Ramesh Krishnaswamy</div>
+        <div class="inst-role">Group Managing Director</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--bg2)">
+  <div class="container">
+    <div class="text-center fade-up">
+      <span class="sec-badge">Pricing</span>
+      <h2 class="sec-title">Transparent, scalable pricing</h2>
+      <p class="sec-sub mx-auto">Annual plans for every institution size. All plans include 99.9% SLA and dedicated onboarding.</p>
+    </div>
+    <div class="pricing-grid fade-up">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-val">₹2.5L<span>/year</span></div>
+        <div class="price-desc">For institutions up to 500 students</div>
+        <div class="price-feat">
+          <div class="pf-item"><span class="pf-check">✓</span>Core 8 modules</div>
+          <div class="pf-item"><span class="pf-check">✓</span>GPS wristband integration</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Parent portal & WhatsApp alerts</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Basic analytics dashboard</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Email & SMS gateway</div>
+        </div>
+        <button class="price-btn pb-ghost">Get started</button>
+      </div>
+      <div class="price-card featured">
+        <div class="popular-badge">Most Popular</div>
+        <div class="price-tier">Professional</div>
+        <div class="price-val">₹8L<span>/year</span></div>
+        <div class="price-desc">For institutions up to 3,000 students</div>
+        <div class="price-feat">
+          <div class="pf-item"><span class="pf-check">✓</span>All 13 core modules</div>
+          <div class="pf-item"><span class="pf-check">✓</span>AI adaptive learning engine</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Multilingual AI tutor (24/7)</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Blockchain credentials</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Mental health wellbeing AI</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Predictive analytics suite</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Micro-credential passports</div>
+        </div>
+        <button class="price-btn pb-primary">Start free trial</button>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-val">Custom</div>
+        <div class="price-desc">Multi-campus groups, 3,000+ students</div>
+        <div class="price-feat">
+          <div class="pf-item"><span class="pf-check">✓</span>Everything in Professional</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Digital twin campus module</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Emotion & engagement AI</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Smart campus IoT & energy</div>
+          <div class="pf-item"><span class="pf-check">✓</span>On-prem / air-gapped deployment</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Dedicated SRE team</div>
+          <div class="pf-item"><span class="pf-check">✓</span>Custom integrations & API</div>
+        </div>
+        <button class="price-btn pb-ghost">Contact sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-section fade-up">
+      <span class="sec-badge">Ready to transform?</span>
+      <h2 class="sec-title" style="margin-bottom:16px">Launch your institution into<br>the intelligence era</h2>
+      <p style="font-size:16px;color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.7">Join 120+ institutions already running on Nexus EduOS. Setup in 2 weeks. Full data migration included. Dedicated onboarding team from day one.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary">Book a Live Demo</a>
+        <a href="#modules" class="btn-ghost">Download Brochure</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">🎓</div>
+        <span class="logo-text">Nexus <span>EduOS</span></span>
+      </a>
+      <p>The next-generation intelligent education operations platform for elite institutions. Built for the Asia Pacific era of educational excellence.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#modules">Core Modules</a>
+      <a href="#advanced">AI Features</a>
+      <a href="#safety">GPS Safety</a>
+      <a href="#security">Security</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <a href="#">K-12 Schools</a>
+      <a href="#">Universities</a>
+      <a href="#">Multi-campus Groups</a>
+      <a href="#">Coaching Institutes</a>
+      <a href="#">International Schools</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About us</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Nexus EduOS. All rights reserved. Built for educational excellence.</div>
+    <div style="font-size:13px;color:var(--text3)">🇮🇳 India · 🇯🇵 Japan · 🌏 Asia Pacific</div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, {threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
